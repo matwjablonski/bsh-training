@@ -6,4 +6,4 @@ Estimation: 20 min
 - in `solution/music.js` file is Player function, copy it to your file
 - connect your function with new Player function using prototype inheritance
 - add button Play to your music player
-- run method play from Player when user clicks on new button
+- run method play from Player when user clicks on new

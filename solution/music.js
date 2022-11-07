@@ -13,20 +13,20 @@ const formatDuration = (time) => {
   return `${minutes}:${paddedSeconds}`;
 }
 
-function Player() {
+function Player(name) {
+  this.name = name;
   this.isPlaying = false;
 }
 
 Player.prototype.play = () => {
-  this.isPlaying = true;
-  console.log('music is playing really loudly', this.isPlaying);
+  this.isPlaying = !this.isPlaying;
+  console.log('music is playing really loudly', this.name ,this.isPlaying);
 }
 
 function MusicPlayer() {
   this.playerWrapper = null;
   Player.call(this);
   this.createPlayer();
-  console.log('this is my music player');
 }
 
 MusicPlayer.prototype.createPlayer = function() {
@@ -50,23 +50,23 @@ MusicPlayer.prototype.prepareSongsList = function() {
   const list = document.createElement('ul');
 
   songs
-    .map((song) => {
+    .map(({performer, duration, title}) => {
       const li = document.createElement('li');
 
       const h2 = document.createElement('h2');
-      h2.innerText = song.title;
+      h2.innerText = title;
       h2.classList.add('song-title');
 
-      const performer = document.createElement('small');
-      performer.innerText = song.performer;
-      h2.appendChild(performer);
+      const performerElement = document.createElement('small');
+      performer.innerText = performer;
+      h2.appendChild(performerElement);
 
-      const duration = document.createElement('div');
+      const durationElement = document.createElement('div');
       duration.classList.add('duration');
-      duration.innerText = formatDuration(song.duration);
+      duration.innerText = formatDuration(duration);
 
       li.appendChild(h2);
-      li.appendChild(duration);
+      li.appendChild(durationElement);
 
       return li;
     })
@@ -78,4 +78,5 @@ MusicPlayer.prototype.prepareSongsList = function() {
 Object.setPrototypeOf(MusicPlayer.prototype, Player.prototype);
 const app = new MusicPlayer();
 
+app.name = 'My music player';
 app.play();
