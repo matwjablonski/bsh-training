@@ -1,14 +1,5 @@
 'use strict';
 
-function Player() {
-  this.isPlaying = false;
-}
-
-Player.prototype.play = () => {
-  this.isPlaying = true;
-  console.log('music is playing really loudly', this.isPlaying);
-}
-
 function isDarkThemePreffered() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
@@ -22,10 +13,43 @@ const formatDuration = (time) => {
   return `${minutes}:${paddedSeconds}`;
 }
 
-const prepareSongsList = () => {
+function Player() {
+  this.isPlaying = false;
+}
+
+Player.prototype.play = () => {
+  this.isPlaying = true;
+  console.log('music is playing really loudly', this.isPlaying);
+}
+
+function MusicPlayer() {
+  this.playerWrapper = null;
+  Player.call(this);
+  this.createPlayer();
+  console.log('this is my music player');
+}
+
+MusicPlayer.prototype.createPlayer = function() {
+  this.playerWrapper = document.createElement('div');
+
+  const isDarkThemePrefered = isDarkThemePreffered();
+
+  if (isDarkThemePrefered) {
+    this.playerWrapper.classList.add('dark');
+  } else {
+    this.playerWrapper.classList.add('light');
+  }
+
+  this.playerWrapper.classList.add('player-wrapper');
+  this.playerWrapper.appendChild(this.prepareSongsList());
+
+  document.body.insertAdjacentElement('afterbegin', this.playerWrapper);
+}
+
+MusicPlayer.prototype.prepareSongsList = function() {
   const list = document.createElement('ul');
 
-  const elements = songs
+  songs
     .map((song) => {
       const li = document.createElement('li');
 
@@ -51,30 +75,7 @@ const prepareSongsList = () => {
   return list;
 }
 
-function createPlayer() {
-  const playerWrapper = document.createElement('div');
+Object.setPrototypeOf(MusicPlayer.prototype, Player.prototype);
+const app = new MusicPlayer();
 
-  const isDarkThemePrefered = isDarkThemePreffered();
-
-  if (isDarkThemePrefered) {
-    playerWrapper.classList.add('dark');
-  } else {
-    playerWrapper.classList.add('light');
-  }
-
-  playerWrapper.classList.add('player-wrapper');
-  playerWrapper.appendChild(prepareSongsList());
-
-  document.body.insertAdjacentElement('afterbegin', playerWrapper);
-}
-
-const app = function() {
-  createPlayer();
-
-  
-
-  
-  console.log('this is my music player');
-}
-
-app();
+app.play();
