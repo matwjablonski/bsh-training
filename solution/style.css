@@ -50,3 +50,28 @@ li {
 .light {
   
 }
+
+.btn {
+  margin: 1rem;
+  appearance: none;
+  background: #ccc;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 10px 30px;
+}
+
+.total {
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border: 1px solid #fff;
+  padding: 0.5rem;
+  width: calc(100% - 2rem);
+}
+
+.total::before {
+  content: "Total duration: ";
+  font-weight: bold;
+}
