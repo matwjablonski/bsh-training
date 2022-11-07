@@ -13,22 +13,42 @@ function isDarkThemePreffered() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
+const formatDuration = (time) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+
+  const paddedSeconds = (seconds < 10 ? "0" + seconds : seconds); 
+
+  return `${minutes}:${paddedSeconds}`;
+}
+
 const prepareSongsList = () => {
-  const a = songs
-    .filter((song) => song.duration > 210 )
-    .map((song) => ({
-      ...song,
-      isLongPlay: true,
-    }));
+  const list = document.createElement('ul');
 
-  const totalDuration = a
-    .reduce((acc, curr) => {
-      return acc + curr.duration;
-    }, 0)
+  const elements = songs
+    .map((song) => {
+      const li = document.createElement('li');
 
+      const h2 = document.createElement('h2');
+      h2.innerText = song.title;
+      h2.classList.add('song-title');
 
-  console.log(a);
-  console.log(totalDuration);
+      const performer = document.createElement('small');
+      performer.innerText = song.performer;
+      h2.appendChild(performer);
+
+      const duration = document.createElement('div');
+      duration.classList.add('duration');
+      duration.innerText = formatDuration(song.duration);
+
+      li.appendChild(h2);
+      li.appendChild(duration);
+
+      return li;
+    })
+    .forEach(li => list.appendChild(li));
+
+  return list;
 }
 
 function createPlayer() {
@@ -42,11 +62,8 @@ function createPlayer() {
     playerWrapper.classList.add('light');
   }
 
-  playerWrapper.addEventListener('click', function() {
-    alert('prefered theme is: ' + isDarkThemePrefered ? 'dark' : 'light');
-  })
-
   playerWrapper.classList.add('player-wrapper');
+  playerWrapper.appendChild(prepareSongsList());
 
   document.body.insertAdjacentElement('afterbegin', playerWrapper);
 }
@@ -54,7 +71,7 @@ function createPlayer() {
 const app = function() {
   createPlayer();
 
-  prepareSongsList();
+  
 
   
   console.log('this is my music player');
