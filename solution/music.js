@@ -1,4 +1,5 @@
-import songs from './songs';
+import songs from './songs.js';
+import musicVideos from './music-videos.js';
 'use strict';
 function isDarkThemePreffered() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -24,9 +25,7 @@ class MusicPlayer extends Player {
         super(name);
         this.playerWrapper = null;
         this.isListFiltered = false;
-        // this.playerWrapper = null;
-        // this.isListFiltered = false;
-        this.songs = songs;
+        this.songs = [...songs, ...musicVideos];
         this.totalDuration = this.setTotalDuration();
         this.totalDurationBox = document.createElement('div');
         this.totalDurationBox.classList.add('total');
@@ -74,8 +73,15 @@ class MusicPlayer extends Player {
     prepareSongsList() {
         const list = document.createElement('ul');
         this.songs
-            .map(({ performer, duration, title }) => {
+            .map((song) => {
+            const { performer, duration, title } = song;
             const li = document.createElement('li');
+            if ('video' in song) {
+                const label = document.createElement('div');
+                label.classList.add('label');
+                label.innerText = 'Video';
+                li.appendChild(label);
+            }
             const h2 = document.createElement('h2');
             h2.innerText = title;
             h2.classList.add('song-title');

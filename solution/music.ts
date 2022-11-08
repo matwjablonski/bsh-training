@@ -1,4 +1,5 @@
-import songs, { Song } from './songs';
+import songs, { Song } from './songs.js';
+import musicVideos, { MusicVideo } from './music-videos.js';
 
 'use strict';
 
@@ -37,20 +38,16 @@ class Player implements IPlayer {
   }
 }
 
-
-
 class MusicPlayer extends Player {
   playerWrapper: HTMLDivElement = null;
   isListFiltered: boolean = false;
-  songs: Song[];
+  songs: (Song | MusicVideo)[];
   totalDuration: number;
   totalDurationBox: HTMLDivElement;
 
   constructor(name: string) {
     super(name);
-    // this.playerWrapper = null;
-    // this.isListFiltered = false;
-    this.songs = songs;
+    this.songs = [...songs, ...musicVideos];
     this.totalDuration = this.setTotalDuration();
     this.totalDurationBox = document.createElement('div');
 
@@ -110,8 +107,16 @@ class MusicPlayer extends Player {
     const list = document.createElement('ul');
   
     this.songs
-      .map(({performer, duration, title}) => {
+      .map((song) => {
+        const {performer, duration, title} = song;
         const li = document.createElement('li');
+
+        if ('video' in song) {
+          const label = document.createElement('div');
+          label.classList.add('label');
+          label.innerText = 'Video';
+          li.appendChild(label);
+        }
   
         const h2 = document.createElement('h2');
         h2.innerText = title;

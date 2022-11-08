@@ -1,4 +1,13 @@
-const musicVideos = [
+import { Song } from './songs';
+
+export interface MusicVideo {
+  video: string;
+  title: string;
+  duration: number;
+  performer: string;
+}
+
+const musicVideos: MusicVideo[] = [
   {
     title: 'My Mind & Me',
     performer: 'Selena Gomez',

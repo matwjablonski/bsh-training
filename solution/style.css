@@ -24,6 +24,18 @@ li {
   display: flex;
   justify-content: space-between;
   margin: 1rem;
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  background: #111;
+  padding: 4px;
+  top: 0;
+  right: 0;
+  color: #fff;
+  font-size: 0.6rem;
+  transform: translate(50% , 100%);
 }
 
 .song-title {
