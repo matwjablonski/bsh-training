@@ -35,3 +35,5 @@ const songs = [
     performer: 'Elton John',
   },
 ];
+
+export default songs;
