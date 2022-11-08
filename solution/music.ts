@@ -1,4 +1,4 @@
-import songs from './songs';
+import songs, { Song } from './songs';
 
 'use strict';
 
@@ -15,23 +15,41 @@ const formatDuration = (time) => {
   return `${minutes}:${paddedSeconds}`;
 }
 
-class Player {
-  constructor(name) {
+interface IPlayer {
+  name: string;
+  isPlaying: boolean;
+
+  play(): void;
+}
+
+class Player implements IPlayer {
+  name: string;
+  isPlaying: boolean;
+
+  constructor(name: string) {
     this.name = name;
     this.isPlaying = false; 
   }
 
-  play() {
+  public play(): void {
     this.isPlaying = !this.isPlaying;
     console.log('music is playing really loudly', this.name ,this.isPlaying);
   }
 }
 
+
+
 class MusicPlayer extends Player {
-  constructor() {
-    super();
-    this.playerWrapper = null;
-    this.isListFiltered = false;
+  playerWrapper: HTMLDivElement = null;
+  isListFiltered: boolean = false;
+  songs: Song[];
+  totalDuration: number;
+  totalDurationBox: HTMLDivElement;
+
+  constructor(name: string) {
+    super(name);
+    // this.playerWrapper = null;
+    // this.isListFiltered = false;
     this.songs = songs;
     this.totalDuration = this.setTotalDuration();
     this.totalDurationBox = document.createElement('div');
@@ -148,7 +166,6 @@ class Playlist {
 
 }
 
-const app = new MusicPlayer();
+const app = new MusicPlayer('My music player');
 
-app.name = 'My music player';
 app.play();
