@@ -1,4 +1,4 @@
-import songs from './songs.js';
+import songs from './songs';
 'use strict';
 function isDarkThemePreffered() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -110,15 +110,8 @@ class MusicPlayer extends Player {
         this.updateList();
     }
 }
-
-const request = new XMLHttpRequest();
-request.open('GET', '/bar/foo.txt', false);  // `false` makes the request synchronous
-request.send(null);
-
-if (request.status === 200) {
-  console.log(request.responseText);
+class Playlist {
 }
-
 const app = new MusicPlayer();
 app.name = 'My music player';
 app.play();

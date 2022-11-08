@@ -1,4 +1,4 @@
-import songs from './songs.js';
+import songs from './songs';
 
 'use strict';
 

@@ -1,4 +1,10 @@
-const songs = [
+interface Song {
+  title: string;
+  duration: number;
+  performer: string;
+}
+
+const songs: Song[] = [
   {
     title: 'Tears in heaven',
     duration: 272,
