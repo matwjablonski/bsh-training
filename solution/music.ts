@@ -41,13 +41,23 @@ class Player implements IPlayer {
 class MusicPlayer extends Player {
   playerWrapper: HTMLDivElement = null;
   isListFiltered: boolean = false;
-  songs: (Song | MusicVideo)[];
+  songs: Required<(Song | MusicVideo)[]>;
   totalDuration: number;
   totalDurationBox: HTMLDivElement;
 
   constructor(name: string) {
     super(name);
-    this.songs = [...songs, ...musicVideos];
+    const a = [...songs, ...musicVideos].map((song, index) => ({
+      ...song,
+      songId: song.performer.length * index
+    }));
+
+    const b: Pick<Song, 'duration'> = {
+      duration: 123,
+    }
+
+
+    this.songs = a;
     this.totalDuration = this.setTotalDuration();
     this.totalDurationBox = document.createElement('div');
 
@@ -72,7 +82,7 @@ class MusicPlayer extends Player {
       if (this.isListFiltered) {
         this.isListFiltered = false;
         filterEltonBtn.innerText = 'Only Elton John Songs'
-        this.songs = songs;
+        this.songs = [...songs, ...musicVideos];
         this.updateList();
       } else {
         this.isListFiltered = true;
