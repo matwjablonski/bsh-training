@@ -1,4 +1,4 @@
-import songs, { Song } from './songs.js';
+import { Song } from './songs.js';
 import musicVideos, { MusicVideo } from './music-videos.js';
 
 'use strict';
@@ -7,7 +7,7 @@ function isDarkThemePreffered() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches;
 }
 
-const formatDuration = (time) => {
+const formatDuration = (time: number) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
 
@@ -39,7 +39,7 @@ class Player implements IPlayer {
 }
 
 class MusicPlayer extends Player {
-  playerWrapper: HTMLDivElement = null;
+  playerWrapper?: HTMLDivElement;
   isListFiltered: boolean = false;
   songs: Required<(Song | MusicVideo)[]>;
   totalDuration: number;
@@ -47,23 +47,51 @@ class MusicPlayer extends Player {
 
   constructor(name: string) {
     super(name);
-    const a = [...songs, ...musicVideos].map((song, index) => ({
-      ...song,
-      songId: song.performer.length * index
-    }));
+    // const a = [...songs, ...musicVideos].map((song, index) => ({
+    //   ...song,
+    //   songId: song.performer.length * index
+    // }));
 
-    const b: Pick<Song, 'duration'> = {
-      duration: 123,
+    // const b: Pick<Song, 'duration'> = {
+    //   duration: 123,
+    // }
+    this.totalDurationBox = document.createElement('div');
+    this.createPlayer();
+    this.createSearchForm();
+    this.fetchData();
+
+    
+
+    this.totalDurationBox.classList.add('total'); 
+  }
+
+  createSearchForm() {
+    const input = document.createElement('input');
+    input.onchange = (e: Event) => {
+      this.search((e.target as HTMLInputElement).value);
     }
 
+    this.playerWrapper?.insertAdjacentElement('afterbegin', input);
+  }
 
-    this.songs = a;
+  async search(title: string) {
+    const response = await fetch(`http://localhost:8000/api/songs/search/${title}`);
+    const { data } = await response.json();
+
+    this.songs = data;
+    this.updateList();
     this.totalDuration = this.setTotalDuration();
-    this.totalDurationBox = document.createElement('div');
+    this.updateTotalDuration();
+  }
 
-    this.totalDurationBox.classList.add('total');
+  async fetchData() {
+    const response = await fetch('http://localhost:8000/api/songs');
+    const { data } = await response.json();
 
-    this.createPlayer();
+    this.songs = data;
+    
+    this.playerWrapper && this.playerWrapper.appendChild(this.prepareSongsList());
+    this.totalDuration = this.setTotalDuration();
     this.updateTotalDuration();
   }
 
@@ -82,7 +110,7 @@ class MusicPlayer extends Player {
       if (this.isListFiltered) {
         this.isListFiltered = false;
         filterEltonBtn.innerText = 'Only Elton John Songs'
-        this.songs = [...songs, ...musicVideos];
+        // this.songs = [...songs, ...musicVideos];
         this.updateList();
       } else {
         this.isListFiltered = true;
@@ -108,7 +136,6 @@ class MusicPlayer extends Player {
     }
   
     this.playerWrapper.classList.add('player-wrapper');
-    this.playerWrapper.appendChild(this.prepareSongsList());
   
     document.body.insertAdjacentElement('afterbegin', this.playerWrapper);
   }
@@ -164,7 +191,12 @@ class MusicPlayer extends Player {
   }
 
   updateList() {
-    this.playerWrapper.replaceChild(this.prepareSongsList(), this.playerWrapper.querySelector('ul'));
+    if (this.playerWrapper) {
+      this.playerWrapper.replaceChild(
+        this.prepareSongsList(),
+        this.playerWrapper.querySelector('ul') as Node,
+      );   
+    }
     
     this.totalDuration = this.setTotalDuration();
     this.updateTotalDuration();
