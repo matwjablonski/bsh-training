@@ -101,7 +101,7 @@ class MusicPlayer extends Player {
     }
   
     this.playerWrapper.classList.add('player-wrapper');
-    this.playerWrapper.appendChild(this.prepareSongsList(this.songs));
+    this.playerWrapper.appendChild(this.prepareSongsList());
   
     document.body.insertAdjacentElement('afterbegin', this.playerWrapper);
   }

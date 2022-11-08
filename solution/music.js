@@ -20,10 +20,12 @@ class Player {
     }
 }
 class MusicPlayer extends Player {
-    constructor() {
-        super();
+    constructor(name) {
+        super(name);
         this.playerWrapper = null;
         this.isListFiltered = false;
+        // this.playerWrapper = null;
+        // this.isListFiltered = false;
         this.songs = songs;
         this.totalDuration = this.setTotalDuration();
         this.totalDurationBox = document.createElement('div');
@@ -66,7 +68,7 @@ class MusicPlayer extends Player {
             this.playerWrapper.classList.add('light');
         }
         this.playerWrapper.classList.add('player-wrapper');
-        this.playerWrapper.appendChild(this.prepareSongsList(this.songs));
+        this.playerWrapper.appendChild(this.prepareSongsList());
         document.body.insertAdjacentElement('afterbegin', this.playerWrapper);
     }
     prepareSongsList() {
@@ -112,6 +114,5 @@ class MusicPlayer extends Player {
 }
 class Playlist {
 }
-const app = new MusicPlayer();
-app.name = 'My music player';
+const app = new MusicPlayer('My music player');
 app.play();
