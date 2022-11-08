@@ -5,12 +5,15 @@
   "main": "music.js",
   "scripts": {
     "start": "browser-sync .",
+    "tsc": "tsc --project tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "browser-sync": "^2.27.10"
+    "browser-sync": "^2.27.10",
+    "tsc": "^2.0.4",
+    "typescript": "^4.8.4"
   }
 }
