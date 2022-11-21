@@ -1,10 +1,23 @@
 import './App.css';
-import { Test } from './Test';
+import List from './components/List/List';
+import LoginForm from './components/LoginForm/LoginForm';
+import data from './data.json';
+
+export interface Snail {
+  name: string;
+  alias: string;
+  speed: number;
+  number: number;
+  purchaseDate: string;
+}
+
+const sortedList = data.snails.sort((a, b) => +new Date(a.purchaseDate) - +new Date(b.purchaseDate))
 
 function App() {
   return (
     <div className="App">
-      <Test />
+      <LoginForm />
+      <List list={sortedList as Snail[]} />
     </div>
   );
 }

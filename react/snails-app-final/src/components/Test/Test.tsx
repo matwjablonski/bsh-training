@@ -1,4 +1,4 @@
-export const Test = () => {
+const Test = () => {
   return <p>hello !</p>
 }
 
