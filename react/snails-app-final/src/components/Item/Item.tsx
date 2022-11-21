@@ -3,9 +3,11 @@ import { Snail } from '../../App';
 
 interface ItemProps extends Snail {
   isFastest?: boolean;
+  changeBet(name: string, value: number): void;
+  changeBet2?: (name: string, value: number) => void;
 }
 
-const Item: FC<ItemProps> = ({ name, alias, purchaseDate, number, speed, isFastest = false }) => {
+const Item: FC<ItemProps> = ({ changeBet, name, alias, purchaseDate, number, speed, isFastest = false }) => {
   return <li style={{
     color: isFastest ? 'green' : 'blue',
   }}>
@@ -13,6 +15,9 @@ const Item: FC<ItemProps> = ({ name, alias, purchaseDate, number, speed, isFaste
     <div>Shell number: {number}</div>
     <div>Speed: {speed}</div>
     <div>Purchase date: {purchaseDate}</div>
+    button / input
+
+    <button onClick={() => changeBet(name, 1)}>+1</button>
   </li>
 }
 

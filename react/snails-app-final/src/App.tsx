@@ -1,6 +1,7 @@
 import './App.css';
 import List from './components/List/List';
 import LoginForm from './components/LoginForm/LoginForm';
+import Test from './components/Test/Test';
 import data from './data.json';
 
 export interface Snail {
@@ -17,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <LoginForm />
-      <List list={sortedList as Snail[]} />
+      <List list={sortedList as Snail[]} header={<Test name="asda"/>} />
     </div>
   );
 }

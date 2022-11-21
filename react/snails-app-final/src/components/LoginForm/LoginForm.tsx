@@ -1,9 +1,17 @@
 import { SyntheticEvent, useState } from 'react';
+import { Snail } from '../../App';
+
+interface StateValues {
+  name: string;
+  login: string;
+  password: string;
+}
 
 const LoginForm = () => {
-  const [loginValues, setLoginValues] = useState({
+  const [loginValues, setLoginValues] = useState<StateValues>({
     login: '',
     password: '',
+    name: ''
   });
   
   const handleSubmit = (e: SyntheticEvent) => {
