@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { Snail } from '../../App';
 import Item from '../Item/Item';
 import Test from '../Test/Test';

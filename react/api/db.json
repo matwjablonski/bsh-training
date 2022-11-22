@@ -1,0 +1,66 @@
+{
+  "snails": [
+    {
+      "id": 1,
+      "name": "Teoś",
+      "alias": "Turbo",
+      "speed": 9999,
+      "number": 5,
+      "purchaseDate": "2022-10-01"
+    },
+    {
+      "id": 2,
+      "name": "Czet",
+      "alias": "",
+      "speed": 2,
+      "number": null,
+      "purchaseDate": "2022-11-01"
+    },
+    {
+      "id": 3,
+      "name": "Gładki Ruch",
+      "alias": "Turbo",
+      "speed": 6,
+      "number": 72,
+      "purchaseDate": "2022-09-21"
+    },
+    {
+      "id": 4,
+      "name": "Boonio",
+      "alias": "Whiplash",
+      "speed": 8,
+      "number": null,
+      "purchaseDate": "2022-10-01"
+    },
+    {
+      "id": 5,
+      "name": "Ślizg",
+      "alias": "Markowicz",
+      "speed": 7,
+      "number": 13,
+      "purchaseDate": "2022-04-12"
+    },
+    {
+      "id": 6,
+      "name": "Biały Cień",
+      "alias": "Bielaczyński",
+      "speed": 5,
+      "number": null,
+      "purchaseDate": "2022-07-17"
+    },
+    {
+      "id": 7,
+      "name": "Pal",
+      "alias": "Dziewczyna Cheta",
+      "speed": 4,
+      "number": 61,
+      "purchaseDate": "2022-09-02"
+    }
+  ],
+  "user": {
+    "name": "Tito Lopez",
+    "snails": ["Turbo", "Czet", "Gładki Ruch"],
+    "crew": "F.A.S.T.",
+    "avatar": "https://static.wikia.nocookie.net/turbo-dreamworks/images/d/d4/Tito_432_320.jpg"
+  }
+}
