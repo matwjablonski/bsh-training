@@ -1,4 +1,5 @@
-import { Avatar, Box } from '@mui/material'
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { User as UserInterface } from '../../App';
 
